@@ -1,0 +1,84 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Distribución / Build
+dist/
+build/
+out/
+
+# Angular
+.angular/
+.ng_pkg_build/
+.ng_build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+
+# Archivos temporales del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE / Editor
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+.idea/
+
+# Cursor AI
+.cursor/
+.cursor-tutor/
+*.cursor-chat
+
+# Tailwind CSS
+# (Generalmente no necesitas ignorar nada específico de Tailwind)
+# Pero si generas archivos de configuración temporales:
+tailwind.config.js.backup
+*.css.map
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.npm/
+.yarn/
+.pnpm-store/
+
+# Archivos de configuración locales
+.angular-cli.json.backup
+angular.json.backup
+
+# Archivos de bloqueo (opcional - algunos prefieren commitearlos)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Archivos de respaldo
+*.backup
+*.bak
+*.swp
+*.tmp
