@@ -130,6 +130,7 @@ export class RoleService {
 
   // Obtener menús disponibles según rol
   getAvailableMenus(user: UserAuthDto | null): NavItem[] {
+
     if (!user) return [];
 
     const allMenus: NavItem[] = [
@@ -166,7 +167,7 @@ export class RoleService {
       },
     ];
 
-    const userRole = Number(user.roleName) as UserRoles;
+    const userRole = user.roleCode as UserRoles;
     return allMenus.filter(menu => menu.roles.includes(userRole));
   }
 }

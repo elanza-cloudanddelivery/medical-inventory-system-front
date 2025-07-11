@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@features/auth/services/auth.service';
 import { RfidLoginRequest } from '@features/auth/models/auth.interface';
-import { AppError } from '@app/core/models/error.interface';
-import { ErrorHandlerService } from '@app/core/services/error-handler.service';
+import { AppError } from '@core/models/error.interface';
+import { ErrorHandlerService } from '@core/services/error-handler.service';
 
 @Component({
   selector: 'app-rfid-login',

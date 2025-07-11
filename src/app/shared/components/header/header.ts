@@ -1,8 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '@app/features/auth/services/auth.service';
-import { RoleService } from '@app/shared/services/role.service';
+import { AuthService } from '@features/auth/services/auth.service';
+import { RoleService } from '@shared/services/role.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +17,13 @@ export class Header {
   private router = inject(Router);
 
   // ✅ Solo estos computed - mucho más simple
-  currentUser = computed(() => this.authService.getCurrentUser());
+  currentUser = toSignal(this.authService.currentUser$); // ← ESTO es clave
   isLoggedIn = computed(() => !!this.currentUser());
   
   // ✅ Una sola fuente de verdad para menús
   availableMenus = computed(() => {
     const user = this.currentUser();
-    return this.roleService.getAvailableMenus(user);
+    return this.roleService.getAvailableMenus(user || null);
   });
 
   // Info del rol para mostrar
@@ -35,11 +36,6 @@ export class Header {
     const user = this.currentUser();
     return this.roleService.getRoleBadgeColor(user?.roleCode || 0);
   });
-
-  // Acciones
-  goToLogin(): void {
-    this.router.navigate(['/auth/login']);
-  }
 
   logout(): void {
     this.authService.logout();
