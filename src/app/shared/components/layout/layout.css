@@ -1,0 +1,77 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Smooth scrolling para main content */
+  main {
+    scroll-behavior: smooth;
+  }
+  
+  /* Animación suave para cambios de página */
+  router-outlet + * {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive container adjustments */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    app-header,
+    footer {
+      display: none !important;
+    }
+    
+    main {
+      padding: 0 !important;
+    }
+  }
+  
+  /* Loading state para transiciones */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  /* Accessibility improvements */
+  main:focus {
+    outline: none;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .bg-gray-50 {
+      background-color: white;
+    }
+    
+    .border-gray-200 {
+      border-color: #000;
+    }
+  }

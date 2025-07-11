@@ -5,8 +5,8 @@ import { tap } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { LoginRequest, RfidLoginRequest, AuthResponse } from '@features/auth/models/auth.interface';
 import { UserAuthDto } from '@shared/models/user.interface';
-import { handleError } from '@app/core/operators/handle-error.operator';
-import { ErrorHandlerService } from '@app/core/services/error-handler.service';
+import { handleError } from '@core/operators/handle-error.operator';
+import { ErrorHandlerService } from '@core/services/error-handler.service';
 
 @Injectable({
   providedIn: 'root'
