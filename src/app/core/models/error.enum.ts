@@ -1,0 +1,26 @@
+export enum ErrorCodes {
+    // Errores de autenticación
+    UNAUTHORIZED = 'UNAUTHORIZED',
+    FORBIDDEN = 'FORBIDDEN',
+    TOKEN_EXPIRED = 'TOKEN_EXPIRED',
+    INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+
+    // Errores de red
+    NETWORK_ERROR = 'NETWORK_ERROR',
+    SERVER_ERROR = 'SERVER_ERROR',
+    SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+    TIMEOUT = 'TIMEOUT',
+
+    // Errores de validación
+    VALIDATION_ERROR = 'VALIDATION_ERROR',
+    NOT_FOUND = 'NOT_FOUND',
+    CONFLICT = 'CONFLICT',
+
+    // Errores específicos de negocio
+    RFID_NOT_FOUND = 'RFID_NOT_FOUND',
+    RFID_INVALID = 'RFID_INVALID',
+    USER_DISABLED = 'USER_DISABLED',
+
+    // Error genérico
+    UNKNOWN_ERROR = 'UNKNOWN_ERROR'
+}

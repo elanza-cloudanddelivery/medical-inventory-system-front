@@ -1,0 +1,51 @@
+.transition-colors {
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  
+  /* Hover effects */
+  nav a:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+  
+  /* Estados activos */
+  a[routerLinkActive*="bg-blue-100"] {
+    box-shadow: 0 1px 3px 0 rgba(59, 130, 246, 0.1);
+  }
+  
+  /* Avatar hover */
+  .w-8.h-8:hover,
+  .w-6.h-6:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Mobile menu animation */
+  .md\\:hidden {
+    animation: slideDown 0.2s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Focus states para accesibilidad */
+  button:focus,
+  a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* Responsive text */
+  @media (max-width: 640px) {
+    .text-2xl {
+      font-size: 1.25rem;
+    }
+  }

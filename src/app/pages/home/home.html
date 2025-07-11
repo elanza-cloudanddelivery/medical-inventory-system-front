@@ -1,0 +1,32 @@
+<main class="min-h-screen bg-blue-50 flex items-center justify-center" role="main">
+    <section class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full" aria-labelledby="page-title">
+      
+      <header class="text-center mb-8">
+        <h1 id="page-title" class="text-2xl font-bold">Medical Inventory</h1>
+        <p class="text-gray-600 mt-2">Sistema de Gestión Hospitalaria</p>
+      </header>
+      
+      <nav aria-label="Métodos de acceso" class="space-y-4">
+        <!-- Botón Login Manual -->
+        <button 
+          type="button"
+          (click)="goToManualLogin()"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          aria-describedby="manual-login-desc">
+          Login Manual
+        </button>
+        <p id="manual-login-desc" class="sr-only">Acceder con usuario y contraseña</p>
+  
+        <!-- Botón Login RFID -->
+        <button 
+          type="button"
+          (click)="goToRfidLogin()"
+          class="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          aria-describedby="rfid-login-desc">
+          Login RFID
+        </button>
+        <p id="rfid-login-desc" class="sr-only">Acceder con tarjeta de identificación</p>
+      </nav>
+      
+    </section>
+  </main>
