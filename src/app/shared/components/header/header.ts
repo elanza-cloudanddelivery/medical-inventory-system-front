@@ -23,8 +23,6 @@ export class Header {
   // ✅ Una sola fuente de verdad para menús
   availableMenus = computed(() => {
     const user = this.currentUser();
-    console.log(user);
-    console.log(this.roleService.getAvailableMenus(user || null));
     return this.roleService.getAvailableMenus(user || null);
   });
 
