@@ -1,0 +1,25 @@
+<div class="p-6">
+
+  <h1 class="text-2xl font-bold my-4">Dispensación de Productos</h1>
+  
+  <div *ngIf="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    {{ error }}
+    <button (click)="onRetry()" class="ml-2 text-red-500 underline">Reintentar</button>
+  </div>
+
+  <app-product-list 
+    *ngIf="!loading && !error"
+    [products]="adaptedProducts"
+    [loading]="false"
+    mode="dispensation"
+    [showStock]="true"
+    [showPrices]="false"
+    [showExpiration]="true"
+    [showCategory]="false"
+    [showBadges]="false"
+    [gridColumns]="4"
+    (onAddToCart)="onAddToCart($event)">
+  </app-product-list>
+
+  <app-cart #cartComponent (onDispenseComplete)="onDispenseComplete()"></app-cart>
+</div>
