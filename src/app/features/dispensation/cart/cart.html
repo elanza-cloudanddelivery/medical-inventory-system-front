@@ -1,0 +1,168 @@
+<div class="h-full flex flex-col bg-white rounded-lg border border-gray-200">
+  
+  <div class="p-4 border-b border-gray-200 bg-gray-50 rounded-t-lg">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+        🛒 Carrito
+        <span *ngIf="hasItems" class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+          {{ totalItems }}
+        </span>
+      </h2>
+      
+      <button *ngIf="hasItems && !loading" 
+              (click)="clearCart()"
+              class="text-red-600 hover:text-red-800 text-sm font-medium"
+              title="Limpiar carrito">
+        🗑️ Limpiar
+      </button>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage() && !loading" class="p-4 bg-red-50 m-4 rounded border border-red-200">
+    <div class="flex items-center">
+      <span class="text-red-400 mr-2">⚠️</span>
+      <p class="text-sm text-red-700">{{ errorMessage() }}</p>
+    </div>
+    <button (click)="onClearError()" class="mt-2 text-xs text-red-600 hover:text-red-800 underline">
+      Cerrar
+    </button>
+  </div>
+
+  <!-- Sin items -->
+  <div *ngIf="!loading && !hasItems && !errorMessage()" 
+       class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+    <p class="text-sm text-gray-500 mb-4">
+      Agrega productos desde la lista para comenzar a dispensar
+    </p>
+  </div>
+
+  <!-- Lista de items -->
+  <div *ngIf="hasItems && !loading" class="flex-1 overflow-y-auto">
+    <div class="p-4 space-y-3">
+      
+      <div *ngFor="let item of cart!.items; trackBy: trackByItemId" 
+           class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+        
+        <div class="flex justify-between items-start mb-2">
+          <div class="flex-1 min-w-0">
+            <h4 class="text-sm font-medium text-gray-900 truncate">
+              {{ item.productName }}
+            </h4>
+            <p class="text-xs text-gray-500 font-mono">{{ item.productSKU }}</p>
+          </div>
+          
+          <button (click)="removeItem(item.id)"
+                  class="text-red-500 hover:text-red-700 ml-2 p-1"
+                  title="Eliminar producto">
+            ✕
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <button (click)="updateItemQuantity(item.id, item.quantity - 1)"
+                    [disabled]="item.quantity <= 1"
+                    class="w-6 h-6 flex items-center justify-center text-xs bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded">
+              −
+            </button>
+            
+            <span class="text-sm font-medium min-w-[2rem] text-center">
+              {{ item.quantity }}
+            </span>
+            
+            <button (click)="updateItemQuantity(item.id, item.quantity + 1)"
+                    class="w-6 h-6 flex items-center justify-center text-xs bg-gray-200 hover:bg-gray-300 rounded">
+              +
+            </button>
+          </div>
+          
+          <div class="text-right">
+            <p class="text-xs text-gray-500">
+              {{ item.unitPrice | currency:'EUR':'symbol':'1.2-2' }} × {{ item.quantity }}
+            </p>
+            <p class="text-sm font-semibold text-gray-900">
+              {{ item.totalPrice | currency:'EUR':'symbol':'1.2-2' }}
+            </p>
+          </div>
+        </div>
+
+        <div *ngIf="item.itemNotes" class="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-800 border border-gray-200">
+          💬 {{ item.itemNotes }}
+        </div>
+
+        <div *ngIf="!item.canBeDispensed" class="mt-2 p-2 bg-red-50 text-xs text-red-800 rounded border border-red-200">
+          ⚠️ Este producto no puede ser dispensado
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div *ngIf="hasItems && !loading" class="border-t border-gray-200 bg-gray-50 p-4 rounded-b-lg">
+    
+    <div class="mb-4">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-sm text-gray-600">Total items:</span>
+        <span class="text-sm font-medium">{{ cart!.totalQuantity }}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-gray-600">Total valor:</span>
+        <span class="text-lg font-bold text-gray-900">
+          {{ totalValue | currency:'EUR':'symbol':'1.2-2' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="space-y-3 mb-4">
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">
+          Motivo (opcional):
+        </label>
+        <input type="text" 
+               [(ngModel)]="dispenseForm.reason"
+               placeholder="Ej: Paciente urgente"
+               class="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+      
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">
+          Departamento:
+        </label>
+        <select [(ngModel)]="dispenseForm.department"
+                class="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+          <option value="Farmacia">Farmacia</option>
+          <option value="Enfermería">Enfermería</option>
+          <option value="Quirófano">Quirófano</option>
+          <option value="Urgencias">Urgencias</option>
+          <option value="UCI">UCI</option>
+        </select>
+      </div>
+      
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">
+          Notas adicionales:
+        </label>
+        <textarea [(ngModel)]="dispenseForm.notes"
+                  rows="2"
+                  placeholder="Notas sobre la dispensación..."
+                  class="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"></textarea>
+      </div>
+    </div>
+
+    <button (click)="dispenseCart()"
+            [disabled]="!canDispense || dispensing"
+            class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+      
+      <div *ngIf="dispensing" class="w-4 h-4 rounded-full animate-spin"></div>
+      <span *ngIf="!dispensing">💊</span>
+      <span>{{ dispensing ? 'Dispensando...' : 'Dispensar Carrito' }}</span>
+    </button>
+
+    <!-- Advertencia -->
+    <div *ngIf="!canDispense" class="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
+      ⚠️ Algunos productos no pueden ser dispensados
+    </div>
+  </div>
+</div>

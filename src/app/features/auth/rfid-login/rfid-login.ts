@@ -1,4 +1,3 @@
-// src/app/auth/rfid-login/rfid-login.component.ts
 
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
