@@ -142,7 +142,7 @@ export class RoleService {
       },
       {
         label: 'Dispensación',
-        route: '/dispensing',
+        route: '/dispensation',
         icon: 'pills',
         roles: [UserRoles.DOCTOR, UserRoles.NURSE, UserRoles.PHARMACIST, UserRoles.ADMINISTRATOR, UserRoles.SUPER_ADMINISTRATOR],
         badge: this.canDispenseControlledMedications(user) ? 'CONTROLADOS' : undefined
